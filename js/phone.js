@@ -6,15 +6,15 @@
 
 
 // way-2
-const loadPhone = async (searchText) => {
+const loadPhone = async (searchText, isShowAll) => {
     const res = await fetch(`https://openapi.programming-hero.com/api/phones?search=${searchText}`)
     const data = await res.json();
     const phones = data.data;
     // console.log(phones)
-    displayPhones(phones)
+    displayPhones(phones, isShowAll)
 }
 
-const displayPhones = phones => {
+const displayPhones = (phones, isShowAll) => {
     console.log(phones)
     //jeheto ekhan theke data niye onno kuthaw dekhabo na tai forEach mara hoise
 
@@ -26,8 +26,22 @@ const displayPhones = phones => {
     // console.log(phones.length)
 
 
-    // display only first 10 phones
-    phones = phones.slice(0, 5)
+    // display show all button if there are more than 12 phones
+    const showAllContainer = document.getElementById('show-all-container');
+    if (phones.length > 10 && !isShowAll) {
+        showAllContainer.classList.remove('hidden')
+    }
+    else {
+        showAllContainer.classList.add('hidden')
+    }
+
+    console.log('is show all', isShowAll)
+
+    // display only first 10 phones **if not show all
+    if (!isShowAll) {
+        phones = phones.slice(0, 10)
+    }
+
 
 
     phones.forEach(phone => {
@@ -52,18 +66,37 @@ const displayPhones = phones => {
         //step-4: appendChild
         phoneContainer.appendChild(phoneCard)
     });
+
+    //hide loading spinner
+    toggleLoadingSpinner(false)
 }
 
 
 
 // handle search button
-const handleSearch = () => {
+const handleSearch = (isShowAll) => {
+    toggleLoadingSpinner(true)
     // console.log('click handler done')
     const searchField = document.getElementById('search-field');
     const searchText = searchField.value;
     console.log(searchText)
-    loadPhone(searchText)
+    loadPhone(searchText, isShowAll)
 }
 
+const toggleLoadingSpinner = (isLoading) => {
+    const loadingSpinner = document.getElementById('loading-spinner-1');
+    if (isLoading) {
+        loadingSpinner.classList.remove('hidden')
+    }
+    else {
+        loadingSpinner.classList.add('hidden')
+    }
+}
+
+
+// handle show all
+const handleShowAll = () => {
+    handleSearch(true)
+}
 
 // loadPhone()
