@@ -15,7 +15,7 @@ const loadPhone = async (searchText) => {
 }
 
 const displayPhones = phones => {
-    // console.log(phones)
+    console.log(phones)
     //jeheto ekhan theke data niye onno kuthaw dekhabo na tai forEach mara hoise
 
     //step-1:
@@ -23,8 +23,15 @@ const displayPhones = phones => {
     // clear phone container cards before adding new cards
     phoneContainer.textContent = '';
 
+    // console.log(phones.length)
+
+
+    // display only first 10 phones
+    phones = phones.slice(0, 5)
+
+
     phones.forEach(phone => {
-        console.log(phone)
+        // console.log(phone)
         // step-2: create a div
         const phoneCard = document.createElement('div')
         phoneCard.classList = `card bg-gray-100 p-4 shadow-xl`;
