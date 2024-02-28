@@ -106,6 +106,9 @@ const showPhoneDetails = (phone) => {
 
     <p class="mt-3"><span>Memory : </span>${phone?.mainFeatures?.
             memory}</p>
+
+    <p class="mt-3"><span>Memory : </span>${phone?.ohters?.
+            GPS || 'No GPS Available in this Device'}</p>
     
     `
 
